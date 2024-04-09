@@ -1,0 +1,9 @@
+[default.general]
+chip = "nrf52840_xxaa"
+
+[default.rtt]
+enabled = true
+
+[default.reset]
+enabled = true
+halt_afterwards = true
