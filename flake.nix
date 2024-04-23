@@ -36,6 +36,7 @@
               rust-toolchain
               stlink-gui
               elf2uf2-rs
+              nodejs_20
             ];
 
           buildInputs = [
