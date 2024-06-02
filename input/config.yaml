@@ -5,15 +5,23 @@ units:
   # Padding Variables
   px: kx + 4
   py: ky + 5
-
   # Parts
-  enc_radius: 11
   trackpad_radius: 20
+  enc_radius: 11
   encx: 22
   ency: 22
+  diode_x: 5
+  diode_y: -8.75
+  diode_right_rotate: 180
+  diode_left_rotate: 180
   led_pos_x: 0 # Led X position relative to the switch center
   led_pos_y: 4.7 # Led Y position relative to the switch center
   led_rotation: 0 # Led rotation
+  # Cases/Outlines variables
+  dpx: px+4
+  dpy: py+4
+  screwRadius: 1
+  standoffRadius: 2.5
   $default_padding: 19
   $default_spread: 19
   $default_width: 18
@@ -237,9 +245,6 @@ points:
         ref: matrix_inner_bottom
         shift: [32, 16]
 
-
-
-  
 outlines:
   keys:
     - what: rectangle
@@ -249,6 +254,10 @@ outlines:
     - what: circle
       where: enc
       radius: .85ky
+  xlencoders:
+    - what: circle
+      where: enc
+      radius: .85ky+2
   encs:
     - what: circle
       where: enc
@@ -324,10 +333,85 @@ outlines:
           shift: [-0.5px,-0.5py]
         - ref: matrix_pinky_top
           shift: [-0.5px,0.5py]
+  xlboard:
+    - what: polygon
+      operation: stack
+      fillet: 2
+      points:
+        - ref: matrix_pinky_top
+          shift: [-0.5dpx,0.5dpy-1]
+        - ref: matrix_ring_top
+          shift: [-0.5dpx,0.5dpy-.5]
+        - ref: matrix_middle_top
+          shift: [-0.5dpx+2,0.5dpy+.5]
+        - ref: matrix_middle_top
+          shift: [0.5dpx,0.5dpy]
+        - ref: matrix_inner_top
+          shift: [0dpx,0.8dpy-.5]
+        - ref: mirror_matrix_inner_top
+          shift: [0dpx,0.8dpy-.5]
+        - ref: mirror_matrix_middle_top
+          shift: [0.5dpx,0.5dpy]
+        - ref: mirror_matrix_middle_top
+          shift: [-0.5dpx+2,0.5dpy+.5]
+        - ref: mirror_matrix_ring_top
+          shift: [-0.5dpx,0.5dpy-.5]
+        - ref: mirror_matrix_pinky_top
+          shift: [-0.5dpx,0.5dpy-1]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [-0.5dpx,-0.5dpy]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [0.5dpx,-0.5dpy]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [0.5dpx,-0.2dpy-1.5]
+        - ref: mirror_enc_enc_enc
+          shift: [.9dpx-5,-0.2dpy-1]
+        - ref: mirror_thumbs_near_home
+          shift: [-0.5dpx,-.3dpy]
+        - ref: mirror_thumbs_near_home
+          shift: [-0.5dpx,-0.5dpy]
+        - ref: mirror_thumbs_mid_home
+          shift: [-0.5dpx+3,-0.5dpy]
+        - ref: mirror_thumbs_mid_home
+          shift: [0.5dpx-2,-0.5dpy]
+        - ref: mirror_thumbs_far_home
+          shift: [0.5dpx,-0.5dpy]
+        - ref: mirror_thumbs_far_home
+          shift: [0.5dpx,0.5dpy]
+        - ref: thumbs_far_home
+          shift: [0.5dpx,0.5dpy]
+        - ref: thumbs_far_home
+          shift: [0.5dpx,-0.5dpy]
+        - ref: thumbs_mid_home
+          shift: [0.5dpx-2,-0.5dpy]
+        - ref: thumbs_mid_home
+          shift: [-0.5dpx+3,-0.5dpy]
+        - ref: thumbs_near_home
+          shift: [-0.5dpx,-0.5dpy]
+        - ref: thumbs_near_home
+          shift: [-0.5dpx,-.3dpy]
+        - ref: enc_enc_enc
+          shift: [.9dpx-5,-0.2dpy-1]
+        - ref: matrix_pinky_bottom
+          shift: [0.5dpx,-0.2dpy-1.5]
+        - ref: matrix_pinky_bottom
+          shift: [0.5dpx,-0.5dpy]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5dpx,-0.5dpy]
+        - ref: matrix_pinky_top
+          shift: [-0.5dpx,0.5dpy-1]
   full:
     - name: board
     - operation: add
       name: encoders
+  xlfull:
+    - name: xlboard
+    - operation: add
+      name: xlencoders
+  fullstack:
+    - name: xlfull
+    - operation: stack
+      name: full
   combo:
     - name: full
     - operation: subtract
@@ -336,22 +420,90 @@ outlines:
       name: encs
     - operation: subtract
       name: trackpad
-
+  standoff:
+    - what: circle
+      radius: standoffRadius
+      where: /matrix_pinky_top/
+      adjust:
+        shift: [kx/2-2, .6ky]
+    - what: circle
+      radius: standoffRadius
+      where: /matrix_index_home/
+      adjust:
+        shift: [.5kx+.5, .33ky]
+    - what: circle
+      radius: standoffRadius
+      where: /matrix_pinky_bottom/
+      adjust:
+        shift: [kx, .15ky]
+    - what: circle
+      radius: standoffRadius
+      where: /matrix_index_bottom/
+      adjust:
+        shift: [.4kx, -.6ky]
+  mounting:
+    - what: circle
+      radius: screwRadius
+      where: /matrix_pinky_top/
+      adjust:
+        shift: [kx/2-2, .6ky]
+    - what: circle
+      radius: screwRadius
+      where: /matrix_index_home/
+      adjust:
+        shift: [.5kx+.5, .33ky]
+    - what: circle
+      radius: screwRadius
+      where: /matrix_pinky_bottom/
+      adjust:
+        shift: [kx, .15ky]
+    - what: circle
+      radius: screwRadius
+      where: /matrix_index_bottom/
+      adjust:
+        shift: [.4kx, -.6ky]
 pcbs:
   DeeDee:
+    template: kicad8
     outlines:
       main:
         outline: full
     footprints:
+      mount_hole_ring_top:
+        what: ceoloide/mounting_hole_plated
+        where: /matrix_ring_top/
+        adjust:
+          shift: [-.5u, -.5u]
+      mount_hole_inner_top:
+        what: ceoloide/mounting_hole_plated
+        where: /matrix_inner_top/
+        adjust:
+          shift: [-.5u, -.5u]
+      mount_hole_ring_bottom:
+        what: ceoloide/mounting_hole_plated
+        where: /matrix_ring_bottom/
+        adjust:
+          shift: [-.5u, -.5u]
+      mount_hole_inner_bottom:
+        what: ceoloide/mounting_hole_plated
+        where: /matrix_inner_bottom/
+        adjust:
+          shift: [-.5u, -.5u]
+      mount_hole_mid_home:
+        what: ceoloide/mounting_hole_plated
+        where: /thumbs_mid_home/
+        adjust:
+          shift: [.7u, 0]
       choc_hotswap:
-        what: choc
+        what: ceoloide/switch_choc_v1_v2
         where: /(matrix|thumbs)_/
         params:
-          keycaps: true
-          reverse: false
-          hotswap: true
-          from: "{{column_net}}"
-          to: "{{colrow}}"
+          show_keycaps: true
+          show_corner_marks: true
+          keycaps_x: 19
+          keycaps_y: 19
+          from: "{{colrow}}"
+          to: "{{column_net}}"
         adjust:
           rotate: 180
       diodes_left:
@@ -361,8 +513,8 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          rotate: 270
-          shift: [-7.75, 1.5] #[0, 3.5]
+          rotate: diode_left_rotate
+          shift: [diode_x, diode_y]
       diodes_enc_left:
         what: ceoloide/diode_tht_sod123
         where: /^enc_/
@@ -371,7 +523,7 @@ pcbs:
           to: "{{row_net}}"
         adjust:
           rotate: 90
-          shift: [-5, -1.75]
+          shift: [-5, 1]
       diodes_right:
         what: ceoloide/diode_tht_sod123
         where: /^(mirror_matrix|mirror_thumbs)_/
@@ -379,8 +531,8 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          rotate: 90
-          shift: [7.75, 1.5] #[0, 3.5]
+          rotate: diode_right_rotate
+          shift: [-diode_x, diode_y]
       diodes_enc_right:
         what: ceoloide/diode_tht_sod123
         where: /^(mirror_enc)_/
@@ -389,7 +541,7 @@ pcbs:
           to: "{{row_net}}"
         adjust:
           rotate: 270
-          shift: [-5, -1.75]
+          shift: [-5, -4]
       enc_left:
         what: rotary
         where.ref: enc_enc_enc
@@ -452,6 +604,30 @@ pcbs:
         where:
           ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
           rotate: 0
+
+      cirque_trackpad:
+        what: simisimis/trackpad_cirque_40mm
+        params:
+          P9: SCL
+          P10: SDA
+          P11: GND
+          P12: VCC
+        where:
+          ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
+          shift: [13, 0]
+          rotate: 90
+
+      oled:
+        what: simisimis/ssd1306_64x48
+        params:
+          P1: SCL
+          P2: SDA
+          P3: GND
+          P4: VCC
+        where:
+          ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
+          rotate: 0
+
       leds_left_side:
         what: ceoloide/led_sk6812mini-e
         where: /^(matrix|thumbs)_/
@@ -474,3 +650,43 @@ pcbs:
         adjust:
           shift: [led_pos_x, led_pos_y]
           rotate: led_rotation
+
+cases:
+  bottom:
+    - name: full
+      extrude: 1
+  xlbottom:
+    - name: xlfull
+      extrude: 1
+  _outerWall:
+    - name: xlfull
+      extrude: 4
+  _innerWall:
+    - name: full
+      extrude: 4
+  _holes:
+    - name: mounting
+      extrude: 4
+  _standoffs:
+    - name: standoff
+      extrude: 4
+  wall:
+    - what: case
+      name: _outerWall
+      operation: add
+    - what: case
+      name: _innerWall
+      operation: subtract
+    - what: case
+      name: _standoffs
+      operation: add
+    - what: case
+      name: _holes
+      operation: subtract
+  case:
+    - what: case
+      name: xlbottom
+      operation: add
+    - what: case
+      name: wall
+      operation: add
