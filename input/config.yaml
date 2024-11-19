@@ -7,16 +7,18 @@ units:
   py: ky + 5
   # Parts
   trackpad_radius: 20
+  #encoder radius + dimensions
   enc_radius: 11
   encx: 22
   ency: 22
+  # diode position + rotation
   diode_x: 5
   diode_y: -8.75
-  diode_right_rotate: 180
-  diode_left_rotate: 180
-  led_pos_x: 0 # Led X position relative to the switch center
-  led_pos_y: 4.7 # Led Y position relative to the switch center
-  led_rotation: 0 # Led rotation
+  diode_rotate: 180
+  # LED position + rotation
+  led_pos_x: 0
+  led_pos_y: 4.7
+  led_rotation: 0
   # Cases/Outlines variables
   dpx: px+4
   dpy: py+4
@@ -249,7 +251,7 @@ outlines:
   keys:
     - what: rectangle
       where: /(matrix|thumbs)_/
-      size: [kx, ky]
+      size: [13.6, 13.6]
   encoders:
     - what: circle
       where: enc
@@ -513,7 +515,7 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          rotate: diode_left_rotate
+          rotate: diode_rotate
           shift: [diode_x, diode_y]
       diodes_enc_left:
         what: ceoloide/diode_tht_sod123
@@ -531,7 +533,7 @@ pcbs:
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
-          rotate: diode_right_rotate
+          rotate: diode_rotate
           shift: [-diode_x, diode_y]
       diodes_enc_right:
         what: ceoloide/diode_tht_sod123
@@ -655,6 +657,12 @@ cases:
   bottom:
     - name: full
       extrude: 1
+  _bottomk:
+    - name: full
+      extrude: 1.6
+  _keys:
+    - name: keys
+      extrude: 1.6
   xlbottom:
     - name: xlfull
       extrude: 1
@@ -690,3 +698,10 @@ cases:
     - what: case
       name: wall
       operation: add
+  pcb:
+    - what: case
+      name: _bottomk
+      operation: add
+    - what: case
+      name: _keys
+      operation: subtract
