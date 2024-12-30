@@ -1,81 +1,69 @@
-module.exports = {
-  params: {
-    designator: 'FFC',
-    P1: { type: 'net', value: 'P1' },
-    P2: { type: 'net', value: 'P2' },
-    P3: { type: 'net', value: 'P3' },
-    P4: { type: 'net', value: 'P4' },
-    P5: { type: 'net', value: 'P5' },
-    P6: { type: 'net', value: 'P6' },
-    P7: { type: 'net', value: 'P7' },
-    P8: { type: 'net', value: 'P8' },
-    P9: { type: 'net', value: 'P9' },
-    P10: { type: 'net', value: 'P10' },
-    P11: { type: 'net', value: 'P11' },
-    P12: { type: 'net', value: 'P12' },
-  },
-  body: p => {
-    const footprint = `
-    (module Hirose_FH12-12S-0.5SH_1x12-1MP_P0.50mm_Horizontal (layer F.Cu) (tedit 5D24667B)
-      (descr "1x12 P0.5mm horizontal FFC, FPC Connector")
-      ${p.at /* parametric position */}
-      (tags "connector Hirose FH12 horizontal")
-      (attr smd)
-
-      (fp_text reference ${p.ref} (at 0 -3.7) (layer F.SilkS) ${p.ref_hide}
-        (effects (font (size 1 1) (thickness 0.15)))
-      )
-      (fp_text value Hirose_FH12-12S-0.5SH_1x12-1MP_P0.50mm_Horizontal (at 0 5.6) (layer F.Fab)
-        (effects (font (size 1 1) (thickness 0.15)))
-      )
-  (pad MP smd rect (at 4.65 1.4 ${p.rot}) (size 1.8 2.2) (layers F.Cu F.Mask F.Paste))
-  (pad MP smd rect (at -4.65 1.4 ${p.rot}) (size 1.8 2.2) (layers F.Cu F.Mask F.Paste))
-  (pad 1 smd rect (at -2.75 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P1.str})
-  (pad 2 smd rect (at -2.25 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P2.str})
-  (pad 3 smd rect (at -1.75 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P3.str})
-  (pad 4 smd rect (at -1.25 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P4.str})
-  (pad 5 smd rect (at -0.75 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P5.str})
-  (pad 6 smd rect (at -0.25 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P6.str})
-  (pad 7 smd rect (at 0.25 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P7.str})
-  (pad 8 smd rect (at 0.75 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P8.str})
-  (pad 9 smd rect (at 1.25 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P9.str})
-  (pad 10 smd rect (at 1.75 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P10.str})
-  (pad 11 smd rect (at 2.25 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P11.str})
-  (pad 12 smd rect (at 2.75 -1.85 ${p.rot}) (size 0.3 1.3) (layers F.Cu F.Mask F.Paste) ${p.P12.str})
-
-    
-  (fp_line (start 0 -1.2) (end -4.55 -1.2) (layer F.Fab) (width 0.1))
-  (fp_line (start -4.55 -1.2) (end -4.55 3.4) (layer F.Fab) (width 0.1))
-  (fp_line (start -4.55 3.4) (end -3.95 3.4) (layer F.Fab) (width 0.1))
-  (fp_line (start -3.95 3.4) (end -3.95 3.7) (layer F.Fab) (width 0.1))
-  (fp_line (start -3.95 3.7) (end -4.45 3.7) (layer F.Fab) (width 0.1))
-  (fp_line (start -4.45 3.7) (end -4.45 4.4) (layer F.Fab) (width 0.1))
-  (fp_line (start -4.45 4.4) (end 0 4.4) (layer F.Fab) (width 0.1))
-  (fp_line (start 0 -1.2) (end 4.55 -1.2) (layer F.Fab) (width 0.1))
-  (fp_line (start 4.55 -1.2) (end 4.55 3.4) (layer F.Fab) (width 0.1))
-  (fp_line (start 4.55 3.4) (end 3.95 3.4) (layer F.Fab) (width 0.1))
-  (fp_line (start 3.95 3.4) (end 3.95 3.7) (layer F.Fab) (width 0.1))
-  (fp_line (start 3.95 3.7) (end 4.45 3.7) (layer F.Fab) (width 0.1))
-  (fp_line (start 4.45 3.7) (end 4.45 4.4) (layer F.Fab) (width 0.1))
-  (fp_line (start 4.45 4.4) (end 0 4.4) (layer F.Fab) (width 0.1))
-  (fp_line (start -3.16 -1.3) (end -4.65 -1.3) (layer F.SilkS) (width 0.12))
-  (fp_line (start -4.65 -1.3) (end -4.65 0.04) (layer F.SilkS) (width 0.12))
-  (fp_line (start 3.16 -1.3) (end 4.65 -1.3) (layer F.SilkS) (width 0.12))
-  (fp_line (start 4.65 -1.3) (end 4.65 0.04) (layer F.SilkS) (width 0.12))
-  (fp_line (start -4.65 2.76) (end -4.65 4.5) (layer F.SilkS) (width 0.12))
-  (fp_line (start -4.65 4.5) (end 4.65 4.5) (layer F.SilkS) (width 0.12))
-  (fp_line (start 4.65 4.5) (end 4.65 2.76) (layer F.SilkS) (width 0.12))
-  (fp_line (start -3.16 -1.3) (end -3.16 -2.5) (layer F.SilkS) (width 0.12))
-  (fp_line (start -3.25 -1.2) (end -2.75 -0.492893) (layer F.Fab) (width 0.1))
-  (fp_line (start -2.75 -0.492893) (end -2.25 -1.2) (layer F.Fab) (width 0.1))
-  (fp_line (start -6.05 -3) (end -6.05 4.9) (layer F.CrtYd) (width 0.05))
-  (fp_line (start -6.05 4.9) (end 6.05 4.9) (layer F.CrtYd) (width 0.05))
-  (fp_line (start 6.05 4.9) (end 6.05 -3) (layer F.CrtYd) (width 0.05))
-  (fp_line (start 6.05 -3) (end -6.05 -3) (layer F.CrtYd) (width 0.05))
-
-  (fp_text user %R (at 0 3.7 ${p.rot}) (layer F.Fab)
-    (effects (font (size 1 1) (thickness 0.15)))
-  )
+(footprint "cirque_connector_with_silk_outline"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "Hirose FH12, FFC/FPC connector, FH12-12S-0.5SH, 12 Pins per row (https://www.hirose.com/product/en/products/FH12/FH12-24S-0.5SH(55)/), generated with kicad-footprint-generator")
+	(tags "connector Hirose FH12 horizontal")
+	(property "Reference" "REF**"
+		(at 0 -3.7 0)
+		(layer "F.SilkS")
+		(uuid "1ec02bd2-5686-4f30-bcff-997653ecf040")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "cirque_connector_with_silk_outline"
+		(at 0 5.6 0)
+		(layer "F.Fab")
+		(uuid "96682359-9075-48e6-a411-7fe99929fa3f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5be20c18-8584-4959-8f38-752e70e29de5")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "eea94480-820c-463f-b778-b01709823436")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5510e88c-fafb-4cfa-8e9a-cf27807f96f5")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
 	(fp_line
 		(start -4.65 -1.3)
 		(end -4.65 0.04)
@@ -312,6 +300,28 @@ module.exports = {
 		(layer "Edge.Cuts")
 		(uuid "63c605eb-b5b1-41bb-ba75-084c4de190b8")
 	)
+	(fp_circle
+		(center 32 10)
+		(end 33 10)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Edge.Cuts")
+		(uuid "9e063adc-2bde-40a1-af22-8437b513df37")
+	)
+	(fp_circle
+		(center 32 30)
+		(end 33 30)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Edge.Cuts")
+		(uuid "e9b0c5eb-ce69-451b-8dae-d1bc342ef502")
+	)
 	(fp_line
 		(start -6.05 -3)
 		(end -6.05 4.9)
@@ -512,29 +522,102 @@ module.exports = {
 		(layer "F.Fab")
 		(uuid "367a9a17-fcd7-4a44-9e8f-03ac51ffcbe8")
 	)
-	(fp_circle
-		(center 32 10)
-		(end 33 10)
-		(stroke
-			(width 0.1)
-			(type default)
+	(fp_text user "${REFERENCE}"
+		(at 0 3.7 0)
+		(layer "F.Fab")
+		(uuid "a5459e2e-7769-435d-b86b-2632044840ff")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
 		)
-		(fill none)
-		(layer "Edge.Cuts")
-		(uuid "9e063adc-2bde-40a1-af22-8437b513df37")
 	)
-	(fp_circle
-		(center 32 30)
-		(end 33 30)
-		(stroke
-			(width 0.1)
-			(type default)
-		)
-		(fill none)
-		(layer "Edge.Cuts")
-		(uuid "e9b0c5eb-ce69-451b-8dae-d1bc342ef502")
+	(pad "1" smd rect
+		(at -2.75 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "22af67eb-30ca-4798-82fc-49ed7f8915cb")
 	)
-	(model "\${KICAD8_3DMODEL_DIR}/Connector_FFC-FPC.3dshapes/Hirose_FH12-12S-0.5SH_1x12-1MP_P0.50mm_Horizontal.wrl"
+	(pad "2" smd rect
+		(at -2.25 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "be8bdb70-1867-47db-a25c-f3b865053ce9")
+	)
+	(pad "3" smd rect
+		(at -1.75 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "5f620726-77ec-4726-bd0c-8cafa8a346f1")
+	)
+	(pad "4" smd rect
+		(at -1.25 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "a41bf712-a1c2-4532-abb7-c4ce182950a4")
+	)
+	(pad "5" smd rect
+		(at -0.75 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "cf05ec8b-526b-4fcb-b071-f4231b966fd2")
+	)
+	(pad "6" smd rect
+		(at -0.25 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "1368b18f-49cb-41ee-8598-86825cbaf3e3")
+	)
+	(pad "7" smd rect
+		(at 0.25 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "4481f90d-bab6-42f0-91ae-cd556da31e83")
+	)
+	(pad "8" smd rect
+		(at 0.75 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "eb299459-1e1c-4af4-8d6b-8cb58cb100f8")
+	)
+	(pad "9" smd rect
+		(at 1.25 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "9ed76fd4-8e95-493e-a19d-9b811bdf549a")
+	)
+	(pad "10" smd rect
+		(at 1.75 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "952370b4-6dab-47c4-b05b-1edcd44eb4ad")
+	)
+	(pad "11" smd rect
+		(at 2.25 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "a818054f-112d-4bcc-a02a-affa08cc890b")
+	)
+	(pad "12" smd rect
+		(at 2.75 -1.85)
+		(size 0.3 1.3)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "7ed77cd2-6419-4842-8ca9-02f64e14bab7")
+	)
+	(pad "MP" smd rect
+		(at -4.65 1.4)
+		(size 1.8 2.2)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "59378c49-ec3a-48f6-ad44-e01451addb07")
+	)
+	(pad "MP" smd rect
+		(at 4.65 1.4)
+		(size 1.8 2.2)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "2eb3c8d1-5672-42b5-a222-8f3d8b50c4db")
+	)
+	(model "${KICAD8_3DMODEL_DIR}/Connector_FFC-FPC.3dshapes/Hirose_FH12-12S-0.5SH_1x12-1MP_P0.50mm_Horizontal.wrl"
 		(offset
 			(xyz 0 0 0)
 		)
@@ -545,8 +628,4 @@ module.exports = {
 			(xyz 0 0 0)
 		)
 	)
-    )
-    `
-    return footprint;
-  }
-}
+)

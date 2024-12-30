@@ -551,50 +551,99 @@ pcbs:
         params:
           from: "{{column_net}}"
           to: "{{colrow}}"
-          A: ELA
-          B: ELB
+          A: ELA_R
+          B: ELB_R
           C: GND
+      enc_left_resistors:
+        what: infused-kim/smd_0805
+        where: enc_enc_enc
+        params:
+          side: 'B'
+          reverse: false
+          components: 4
+          space: 1
+          mirror: false
+          net_1_from: ELA_R
+          net_1_to: ELA
+          net_2_from: ELA_R
+          net_2_to: VCC
+          net_3_from: ELB_R
+          net_3_to: VCC
+          net_4_from: ELB_R
+          net_4_to: ELB
+          label_1: '10kΩ'
+          label_2: '10kΩ'
+          label_3: '10kΩ'
+          label_4: '10kΩ'
+        adjust:
+          shift: [ 14, 2 ]
+          rotate: 0
+      enc_right_resistors:
+        what: infused-kim/smd_0805
+        where: mirror_enc_enc_enc
+        params:
+          side: 'B'
+          components: 4
+          space: 1
+          reverse: false
+          net_1_from: ERA_R
+          net_1_to: ERA
+          net_2_from: ERA_R
+          net_2_to: VCC
+          net_3_from: ERB_R
+          net_3_to: VCC
+          net_4_from: ERB_R
+          net_4_to: ERB
+          label_1: '10kΩ'
+          label_2: '10kΩ'
+          label_3: '10kΩ'
+          label_4: '10kΩ'
+        adjust:
+          shift: [ 14, 2 ]
+          rotate: 0
       enc_right:
         what: rotary
         where.ref: mirror_enc_enc_enc
         params:
           from: "{{column_net}}"
           to: "{{colrow}}"
-          A: ERA
-          B: ERB
+          A: ERA_R
+          B: ERB_R
           C: GND
       nicenano:
         what: ceoloide/mcu_nice_nano
         params:
+          side: 'B'
           reverse_mount: true
           include_extra_pins: true
           use_rectangular_jumpers: true
           invert_jumpers_position: true
-          # left side(when flipped)
+          show_silk_labels_on_both_sides: false
+          # pcb front: right side(mcu facing pcb on the back)
           #RAW:
           #GND:
           #RST:
           #VCC:
           P21: LED
-          P20: C1
-          P19: C2
-          P18: C3
-          P15: C4
-          P14: C5
-          P16: ELA # Encoder left A
-          P10: ELB # Encoder left B
+          P20: C10
+          P19: C9
+          P18: C8
+          P15: C7
+          P14: C6
+          P16: ERA # Encoder right A
+          P10: ERB # Encoder Right B
 
-          # right side (when flipped)
-          P1: C10
-          P0: C9
+          # pcb front: left side(mcu facing pcb on the back)
+          P1: C1
+          P0: C2
           P2: SDA
           P3: SCL
-          P4: C8
-          P5: C7
-          P6: C6
+          P4: C3
+          P5: C4
+          P6: C5
           P7: R1
-          P8: ERA # Encoder right A
-          P9: ERB # Encoder Right B
+          P8: ELA # Encoder left A
+          P9: ELB # Encoder left B
 
           P101: R2
           P102: R3
@@ -604,7 +653,26 @@ pcbs:
         #  shift: [0,-7]
         #  rotate: 0
         where:
-          ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
+          ref.aggregate.parts: [matrix_inner_top, mirror_matrix_inner_top]
+          shift: [0,-1]
+          rotate: 0
+      reset_switch:
+        what: simisimis/reset_switch_tht_side
+        where: mirror_matrix_index_top
+        adjust:
+          shift: [0, 14]
+          rotate: -15.25
+      power_switch:
+        what: simisimis/power_switch_smd_side
+        where:
+          ref.aggregate.parts: [thumbs_far_home, mirror_thumbs_far_home]
+          shift: [0, -8]
+          rotate: 180
+      battery_connector:  
+        what: ceoloide/battery_connector_jst_ph_2
+        where:
+          ref.aggregate.parts: [thumbs_mid_home, mirror_thumbs_mid_home]
+          shift: [ -6.8, 3 ]
           rotate: 0
 
       cirque_trackpad:
@@ -616,19 +684,20 @@ pcbs:
           P12: VCC
         where:
           ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
-          shift: [13, 0]
-          rotate: 90
+          shift: [20, -5]
+          rotate: 270
 
       oled:
-        what: simisimis/ssd1306_64x48
+        what: simisimis/jst-ph-smt-4p-2mm
         params:
-          P1: SCL
-          P2: SDA
-          P3: GND
-          P4: VCC
+          SCL: SCL
+          SDA: SDA
+          GND: GND
+          VCC: VCC
         where:
-          ref.aggregate.parts: [matrix_inner_bottom, mirror_matrix_inner_bottom]
-          rotate: 0
+          ref.aggregate.parts: [thumbs_mid_home, mirror_thumbs_mid_home]
+          shift: [4, 1]
+          rotate: 180
 
       leds_left_side:
         what: ceoloide/led_sk6812mini-e
@@ -641,6 +710,19 @@ pcbs:
         adjust:
           shift: [led_pos_x, led_pos_y]
           rotate: led_rotation
+      led_caps_left_side:
+        what: infused-kim/smd_0805
+        where: /^(matrix|thumbs)_/
+        params:
+          side: 'B'
+          reverse: false
+          components: 1
+          mirror: false
+          net_1_from: GND
+          net_1_to: VCC
+        adjust:
+          shift: [led_pos_x + 4.25, led_pos_y -2.5 ]
+          rotate: led_rotation + 90
       leds_right_side:
         what: ceoloide/led_sk6812mini-e
         where: /^(mirror_matrix|mirror_thumbs)_/
@@ -652,7 +734,18 @@ pcbs:
         adjust:
           shift: [led_pos_x, led_pos_y]
           rotate: led_rotation
-
+      led_caps_right_side:
+        what: infused-kim/smd_0805
+        where: /^(mirror_matrix|mirror_thumbs)_/
+        params:
+          side: 'B'
+          reverse: false
+          components: 1
+          net_1_from: VCC
+          net_1_to: GND
+        adjust:
+          shift: [led_pos_x - 4.25, led_pos_y -2.5 ]
+          rotate: led_rotation + 90
 cases:
   bottom:
     - name: full
