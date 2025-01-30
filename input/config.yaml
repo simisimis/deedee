@@ -502,6 +502,7 @@ pcbs:
         params:
           show_keycaps: true
           show_corner_marks: true
+          choc_v2_support: false
           keycaps_x: 19
           keycaps_y: 19
           from: "{{colrow}}"
@@ -662,7 +663,16 @@ pcbs:
         adjust:
           shift: [0, 14]
           rotate: -15.25
-      power_switch:
+      # power_switch_led:
+      #   what: simisimis/power_switch_smd_side
+      #   where: mirror_matrix_index_top
+      #   adjust:
+      #     shift: [10, 14]
+      #     rotate: -15.25
+      #   params:
+      #     PWR_IN: VCC_LED
+      #     PWR_OUT: VCC
+      power_switch_battery:
         what: simisimis/power_switch_smd_side
         where:
           ref.aggregate.parts: [thumbs_far_home, mirror_thumbs_far_home]
@@ -672,12 +682,12 @@ pcbs:
         what: ceoloide/battery_connector_jst_ph_2
         where:
           ref.aggregate.parts: [thumbs_mid_home, mirror_thumbs_mid_home]
-          shift: [ -6.8, 3 ]
+          shift: [ -6.8, 4.75 ]
           rotate: 0
-
       cirque_trackpad:
-        what: simisimis/trackpad_cirque_40mm
+        what: simisimis/hirose_ffc_12p_05mm_back
         params:
+          side: 'B'
           P9: SCL
           P10: SDA
           P11: GND
@@ -690,10 +700,11 @@ pcbs:
       oled:
         what: simisimis/jst-ph-smt-4p-2mm
         params:
-          SCL: SCL
-          SDA: SDA
-          GND: GND
-          VCC: VCC
+          side: 'F'
+          P1: GND
+          P2: VCC
+          P3: SDA
+          P4: SCL
         where:
           ref.aggregate.parts: [thumbs_mid_home, mirror_thumbs_mid_home]
           shift: [4, 1]
@@ -703,7 +714,7 @@ pcbs:
         what: ceoloide/led_sk6812mini-e
         where: /^(matrix|thumbs)_/
         params:
-          P1: VCC
+          P1: VCC_LED
           P2: "{{key.led_next}}" #DOUT
           P3: GND
           P4: "{{key.led_prev}}" #DIN
@@ -719,7 +730,7 @@ pcbs:
           components: 1
           mirror: false
           net_1_from: GND
-          net_1_to: VCC
+          net_1_to: VCC_LED
         adjust:
           shift: [led_pos_x + 4.25, led_pos_y -2.5 ]
           rotate: led_rotation + 90
@@ -727,7 +738,7 @@ pcbs:
         what: ceoloide/led_sk6812mini-e
         where: /^(mirror_matrix|mirror_thumbs)_/
         params:
-          P1: VCC
+          P1: VCC_LED
           P2: "{{mirror.key.led_next}}" #DOUT
           P3: GND
           P4: "{{mirror.key.led_prev}}" #DIN
@@ -741,7 +752,7 @@ pcbs:
           side: 'B'
           reverse: false
           components: 1
-          net_1_from: VCC
+          net_1_from: VCC_LED
           net_1_to: GND
         adjust:
           shift: [led_pos_x - 4.25, led_pos_y -2.5 ]
