@@ -3,7 +3,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: .github/workflows/build-user-config.yml
+    uses: ./.github/workflows/build-user-config.yml
     with:
       build_matrix_path: zmk/build.yaml
       config_path: zmk/config

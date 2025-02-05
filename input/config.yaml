@@ -22,8 +22,8 @@ units:
   # Cases/Outlines variables
   dpx: px+4
   dpy: py+4
-  screwRadius: 1
-  standoffRadius: 2.5
+  screwRadius: 1.5
+  standoffRadius: 3.5
   $default_padding: 19
   $default_spread: 19
   $default_width: 18
@@ -425,45 +425,85 @@ outlines:
   standoff:
     - what: circle
       radius: standoffRadius
-      where: /matrix_pinky_top/
+      where: /matrix_ring_top/
       adjust:
-        shift: [kx/2-2, .6ky]
+        shift: [-.5u, -.5u]
     - what: circle
       radius: standoffRadius
-      where: /matrix_index_home/
+      where: /matrix_inner_top/
       adjust:
-        shift: [.5kx+.5, .33ky]
+        shift: [-.5u, -.5u]
     - what: circle
       radius: standoffRadius
-      where: /matrix_pinky_bottom/
+      where: /matrix_ring_bottom/
       adjust:
-        shift: [kx, .15ky]
+        shift: [-.5u, -.5u]
     - what: circle
       radius: standoffRadius
-      where: /matrix_index_bottom/
+      where: /matrix_inner_bottom/
       adjust:
-        shift: [.4kx, -.6ky]
+        shift: [-.5u, -.5u]
+    - what: circle
+      radius: standoffRadius
+      where: /matrix_inner_bottom/
+      adjust:
+        shift: [15.6, 3]
+    - what: circle
+      radius: standoffRadius
+      where: /thumbs_mid_home/
+      adjust:
+        shift: [.7u, 0]
+    - what: circle
+      radius: standoffRadius
+      where: /thumbs_mid_home/
+      adjust:
+        shift: [12.43, 16]
+    - what: circle
+      radius: standoffRadius
+      where: /thumbs_far_home/
+      adjust:
+        shift: [-7.34, 15]
   mounting:
     - what: circle
       radius: screwRadius
-      where: /matrix_pinky_top/
+      where: /matrix_ring_top/
       adjust:
-        shift: [kx/2-2, .6ky]
+        shift: [-.5u, -.5u]
     - what: circle
       radius: screwRadius
-      where: /matrix_index_home/
+      where: /matrix_inner_top/
       adjust:
-        shift: [.5kx+.5, .33ky]
+        shift: [-.5u, -.5u]
     - what: circle
       radius: screwRadius
-      where: /matrix_pinky_bottom/
+      where: /matrix_ring_bottom/
       adjust:
-        shift: [kx, .15ky]
+        shift: [-.5u, -.5u]
     - what: circle
       radius: screwRadius
-      where: /matrix_index_bottom/
+      where: /matrix_inner_bottom/
       adjust:
-        shift: [.4kx, -.6ky]
+        shift: [-.5u, -.5u]
+    - what: circle
+      radius: screwRadius
+      where: /matrix_inner_bottom/
+      adjust:
+        shift: [15.6, 3]
+    - what: circle
+      radius: screwRadius
+      where: /thumbs_mid_home/
+      adjust:
+        shift: [.7u, 0]
+    - what: circle
+      radius: screwRadius
+      where: /thumbs_mid_home/
+      adjust:
+        shift: [12.43, 16]
+    - what: circle
+      radius: screwRadius
+      where: /thumbs_far_home/
+      adjust:
+        shift: [-7.34, 15]
 pcbs:
   DeeDee:
     template: kicad8
@@ -772,16 +812,16 @@ cases:
       extrude: 1
   _outerWall:
     - name: xlfull
-      extrude: 4
+      extrude: 9
   _innerWall:
     - name: full
-      extrude: 4
+      extrude: 9
   _holes:
     - name: mounting
-      extrude: 4
+      extrude: 3
   _standoffs:
     - name: standoff
-      extrude: 4
+      extrude: 3
   wall:
     - what: case
       name: _outerWall
