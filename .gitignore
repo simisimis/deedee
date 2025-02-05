@@ -2,3 +2,6 @@
 node_modules
 **/backups
 tmp
+pcb/generated
+pcb/manual/*-backups
+archive
