@@ -28,6 +28,7 @@
               ]);
             in
             [
+              tio
               cargo-binutils
               cargo-make
               probe-rs
