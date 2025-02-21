@@ -540,11 +540,11 @@ pcbs:
         what: ceoloide/switch_choc_v1_v2
         where: /(matrix|thumbs)_/
         params:
-          show_keycaps: true
-          show_corner_marks: true
+          include_keycap: true
+          include_corner_marks: true
           choc_v2_support: false
-          keycaps_x: 19
-          keycaps_y: 19
+          keycap_height: 19
+          keycap_width: 19
           from: "{{colrow}}"
           to: "{{column_net}}"
         adjust:
