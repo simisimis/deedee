@@ -15,7 +15,7 @@
     flavor = "tap-preferred";
     tapping-term-ms = <285>;
     quick-tap-ms = <200>;
-    require-prior-idle-ms = <220>;
+    require-prior-idle-ms = <50>;
 };
 
 / {
@@ -35,8 +35,8 @@
             sensor-bindings = <&inc_dec_kp LC(LS(Z)) LC(Z) &inc_dec_kp PG_UP PG_DN>;
             bindings = <
                 &kp N1         &kp N2        &kp N3         &kp N4          &kp N5    &kp N6   &kp N7   &kp N8   &kp N9   &kp N0
-                &mt LGUI TILDE &mt LALT DLLR &mt LCTRL HASH &mt LSHFT PRCNT &kp APOS  &kp PIPE &kp LPAR &kp LBRC &kp LBKT &kp EQUAL
-                &none          &none         &none          &none           &kp GRAVE &kp INS  &kp RPAR &kp RBRC &kp RBKT &kp PLUS
+                &mt LGUI MINUS &mt LALT DLLR &mt LCTRL HASH &mt LSHFT PRCNT &kp APOS  &kp PIPE &kp LPAR &kp LBRC &kp LBKT &kp EQUAL
+                &kp TILDE      &none         &none          &none           &kp GRAVE &kp INS  &kp RPAR &kp RBRC &kp RBKT &kp PLUS
                                &trans        &kp DEL        &kp RS(TAB)     &none     &none    &trans   &none    &trans
             >;
         };

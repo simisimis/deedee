@@ -5,24 +5,31 @@
 
     encoder_left: encoder_left {
         compatible = "alps,ec11";
-        a-gpios = <&gpio1 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio1 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <48>;
+        //a-gpios = <&gpio1 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
+        a-gpios = <&gpio1 4 (GPIO_ACTIVE_HIGH )>;
+        b-gpios = <&gpio1 6 (GPIO_ACTIVE_HIGH )>;
+        steps = <24>;
         status = "okay";
     };
 
     encoder_right: encoder_right {
         compatible = "alps,ec11";
-        a-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        b-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <48>;
+        a-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH )>;
+        b-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH )>;
+        steps = <15>;
         status = "okay";
     };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&encoder_left &encoder_right>;
-        triggers-per-rotation = <24>;
+        encoder_left {
+            triggers-per-rotation = <24>;
+        };
+
+        encoder_right {
+            triggers-per-rotation = <30>;
+        };
     };
 
     chosen {
